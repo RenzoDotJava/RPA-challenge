@@ -1,0 +1,33 @@
+# Parte 1: Desarrollo de la UI
+
+- Como wrapper principal utilice el 'SafeAreaView' para separar el status bar de la vista. Como en Android este componente no funciona, se agrego adicionalmente una condicional en los estilos (androidSafeArea) para detectar si el dispositivo es Android y agregar un padding top.
+
+- Dividí la vista principal en 2 componentes: Header y PublicationList. Dentro del Header se ubicá la barra de búsqueda y dentro de PublicationList, la lista de publicaciones de cada uno de los usuarios. Se hizo esta división con la finalidad de aprovechar la funcionalidad que brinda React de dividir las vistas en componentes a fin de reutilizarlas y tener un código más legible. Cabe mencionar que cada uno de los componentes tiene su propia hoja de estilos y la definición de sus props.
+
+- Como parte del PublicationList, se hizo uso del componente nativo 'SectionList', este componente aprovecha las ventajas del 'FlatList', siendo la principal de ellas renderizar solo los elementos que se muestren en pantalla. Asimismo, al usar este componente ya no hace falta hacer uso de un bucle para mostrar todos los elementos de un array en pantalla. Adicionalmente, este componente nos permite hacer un listado por secciones, lo cual es una funcionalidad que puede ser muy bien aprovechada en este tipo de apps.
+
+- Dentro del componente PublicationList se hace uso de otro 2 componentes llamados PublicationTitle y PublicationContent. El primero muestra el nombre del usuario como título de la sección y el segundo, el título y contenido de la publicación. Cabe destacar que para mostrar los divisores entre publicaciones se utilizó el borderTop y una condicion que mostraba todos los divisores excepto el de la publicación con índice 0.
+
+# Parte 2: Obtención de las publicaciones
+
+- Dentro del archivo publicationServices.ts se ubican todas las funciones relacionadas con la obtención y manejo de la información.
+
+- Dentro del archivo publicationInterfaces.ts se ubican las interfaces que fueron utilizadas para el desarrollo de la app. Principalmente, se definieron 2 interfaces llamadas Publication y UserPublications. La interface Publication contiene la definición del objeto Publicación, recordemos que la API devuelve una lista de publicaciones. Por otro lado, la interface UserPublications contiene el id del usuario y una lista de sus publicaciones. Se creo esta interface debido a que se vio conveniente agrupar las publicaciones por usuario y asi aprovechar el componente 'SectionList'.
+
+- La función 'getPublicationsByUserId' tiene la finalidad de obtener las publicaciones de un usuario en un base a su id haciendo uso de la función 'fetch', luego utiliza la función 'slice' para quedarse con las 3 primeras publicaciones.
+
+- La función 'getPublicationsByUsersAmount' tiene la finlidad de obtener las publicaciones de 5 usuarios, esto se hace de forma paralela usando la función 'Promise.all'. Luego, se procede a realizar la agrupación de publicaciones por usuario, para esto primero de usa la función 'flat', para reducir la matriz de 5x3 de Publicaciones a una de 15x1. Después, esta lista de Publicaciones es ingresada a la función 'groupPublicationsByUserId', la cual tiene la finalidad de agrupar las publicaciones haciendo uso de la función 'reduce', esta función nos permite crear un nuevo elemento en base a la lista de publicaciones y un acumulador inicial, el cual en este caso es una lista. Posteriormente, se guarda la lista obtenida en el 'AsyncStorage'. Cabe mencionar que el [AsyncStorage](https://reactnative.dev/docs/asyncstorage) propio de React Native ha sido removido, por lo que se tuvo que hacer uso de una dependencia externa, para este caso se utilizó "@react-native-async-storage/async-storage". Una vez guardada la lista en el 'AsyncStorage', la misma es retornada.
+
+- La función 'getUsersPublications' tiene la finalidad de obtener devuelta la lista de UserPublications del "AsyncStorage", en caso de que la lista no haya sido obtenida se realiza el request haciendo uso de la función 'getPublicationsByUsersAmount' mencionada previamente. Adicionalmente, esta función tiene un parámetro llamado 'reshesh' el cual nos indica si el usuario ha realizado un pull up to refresh para asi realizar el request nuevamente.
+
+- Dentro del componente principal se estableció un useEffect dentro del cual se ejecutará la función 'getUsersPublications' para obtener las publicaciones, estas son guardadas en 2 estados llamados usersPublications y filteredUsersPublications. Adicionalmente, se hace uso de la función 'cleanup' para asi detener el guardado de las publicaciones en caso el componente principal sea destruido, ya sea por ejemplo si el usuario cambia de vista o deja de utilizarla.
+
+# Parte 3: Brindar funcionalidad
+
+- Como parte de la barra de búsqueda se utilizó un estado donde se guarde una cadena de caracteres, también se definió una función llamada 'searchFilter' la cual se ejecuta en base al llamado del evento 'onChangeText' de la barra de búsqueda. Esta función permite hacer el filtrado de las publicaciones en base a la cadena de caracteres, para esto primero se hace uso de la función 'filter' para filtrar a todos los usuarios que contengan al menos una publicación en la cual su título contenga la cadena de caracteres escrita. Posteriomente, se recorre este listado haciendo uso de la función 'map', para obtener por usuario solo las publicaciones que contengan la cadena de caracteres. Cabe mencionar, que idealmente este tipo de operaciones no se deberian de realizar desde el lado del cliente, sino desde el servidor. Existen alternativas mucho más eficientes, como por ejemplo Redis, la cual es una base de datos en memoria que permite hacer requests mucho menos costosos y rápidos gracias a su funcionalidad de hashing. Al hacer uso de esta base de datos se le estaría quitando una carga extra al cliente.
+
+- Como parte del refresh, se hizo uso del componente nativo 'RefreshControl'. Para hacer uso de este componente, se definió un estado llamado loading, el cual nos permitirá controlar y saber cuando un request ha finalizado. Adicionalmente, se definió la función onRefresh, en la cual se ejecuta la función 'getUsersPublications' con el parámetro de refresh en verdadero. Cabe destacar que se hace uso del hook 'useCallBack' para guardar en memoria la función y no se tenga que estar instanciando cada vez que se ejecute un render.
+
+# Fin de la prueba
+
+- Para levantar el proyecto, primero descargue las dependencias con el comando 'npm install'. Una vez descargadas las dependencias, ejecute el comando 'npx expo start'
