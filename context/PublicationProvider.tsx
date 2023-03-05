@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect, useCallback } from "react";
 import { IPublication, IUserPublications } from "../interfaces/publication.interface";
 import { PublicationContext } from "./PublicationContext";
-import { PublicationService } from "../services/publicationService";
+import { PublicationService } from "../services/publication.service";
 
 export const PublicationProvider: React.FC<any> = ({ children }) => {
 	const [usersPublications, setUsersPublications] = useState<IUserPublications[]>([]);
