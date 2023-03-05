@@ -1,12 +1,11 @@
-import { View, TextInput, StyleSheet, Platform, StatusBar } from "react-native";
+import { useContext } from "react";
+import { View, TextInput, StyleSheet, Platform } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { PublicationContext } from "../context/PublicationContext";
 
-interface HeaderProps {
-	search: string;
-	searchFilter: (text: string) => void;
-}
+const Header: React.FC = () => {
+	const { search, searchFilter } = useContext(PublicationContext);
 
-const Header = ({ search, searchFilter }: HeaderProps) => {
 	return (
 		<View style={styles.header}>
 			<View style={styles.container}>

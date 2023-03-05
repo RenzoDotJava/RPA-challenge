@@ -1,62 +1,48 @@
-import { useState, useCallback } from "react"
-import { StyleSheet, Platform, StatusBar, SectionList, RefreshControl } from 'react-native'
-import { UserPublications } from "../interfaces/PublicationInterfaces";
-import { getUsersPublications } from "../services/publicationService";
+import { useContext } from "react"
+import { SectionList, RefreshControl, View, StyleSheet } from 'react-native'
 import PublicationContent from './PublicationContent';
 import PublicationTitle from './PublicationTitle';
+import EmptyList from "./EmptyList";
+import { PublicationContext } from "../context/PublicationContext";
 
-interface PublicationListProps {
-  filteredUsersPublications: UserPublications[];
-  setUsersPublications: (list: UserPublications[]) => void;
-  setFilteredUsersPublications: (list: UserPublications[]) => void;
-  setSearch: (text: string) => void;
-}
-
-const PublicationList = ({filteredUsersPublications, setUsersPublications, setFilteredUsersPublications, setSearch}: PublicationListProps) => {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const onRefresh = useCallback(() => {
-		setLoading(true);
-		getUsersPublications(true)
-			.then((res: UserPublications[]) => {
-				setUsersPublications(res);
-				setFilteredUsersPublications(res);
-			})
-			.catch(() => {
-				setUsersPublications([]);
-				setFilteredUsersPublications([]);
-			})
-			.finally(() => {
-				setSearch("");
-				setLoading(false);
-			});
-	}, []);
+const PublicationList: React.FC = () => {
+  const { filteredUsersPublications, loading, onRefreshPublications } = useContext(PublicationContext);
 
   return (
-    <SectionList
-      refreshControl={
-        <RefreshControl
-          refreshing={loading}
-          onRefresh={onRefresh}
-          colors={["#32373A"]}
-          tintColor={"#32373A"}
-        />
-      }
-      sections={filteredUsersPublications}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={({ item, index }) => (
-        <PublicationContent
-          index={index}
-          title={item.title}
-          body={item.body}
-        />
-      )}
-      renderSectionHeader={({ section: { userId } }) => (
-        <PublicationTitle userId={userId} />
-      )}
-      stickySectionHeadersEnabled={false}
-    />
+    <View style={styles.container}>
+      <SectionList
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={onRefreshPublications}
+            colors={["#32373A"]}
+            tintColor={"#32373A"}
+          />
+        }
+        sections={filteredUsersPublications}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item, index }) => (
+          <PublicationContent
+            index={index}
+            title={item.title}
+            body={item.body}
+          />
+        )}
+        renderSectionHeader={({ section: { userId } }) => (
+          <PublicationTitle userId={userId} />
+        )}
+        stickySectionHeadersEnabled={false}
+        ListEmptyComponent={<EmptyList text={'No hay publicaciones'}/>}
+      />
+    </View>
   )
 }
+
+const styles = StyleSheet.create({
+	container: {
+		backgroundColor: "#CCCCCC",
+		flex: 1,
+	},
+});
 
 export default PublicationList

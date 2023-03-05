@@ -1,16 +1,16 @@
 import { View, Text, Platform, StyleSheet } from "react-native";
 
-interface PublicationContentProps {
+type PublicationContentProps = {
 	index: number;
 	title: string;
 	body: string;
-}
+};
 
-const PublicationContent = ({
+const PublicationContent: React.FC<PublicationContentProps> = ({
 	index,
 	title,
 	body,
-}: PublicationContentProps) => {
+}) => {
 	return (
 		<View style={styles.container}>
 			<View
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
 		fontWeight: "500",
 		marginTop: 8,
 		paddingBottom: 15,
+		fontFamily: Platform.OS === "android" ? "serif" : "Arial",
 	},
 });
 

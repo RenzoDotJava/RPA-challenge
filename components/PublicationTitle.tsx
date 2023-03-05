@@ -1,10 +1,10 @@
 import { View, Text, Platform, StyleSheet } from "react-native";
 
-interface PublicationTitleProps {
+type PublicationTitleProps = {
 	userId?: number;
 }
 
-const PublicationTitle = ({ userId }: PublicationTitleProps) => {
+const PublicationTitle: React.FC<PublicationTitleProps> = ({ userId }) => {
 	return (
 		<View style={styles.container}>
 			<Text style={styles.title}>User {userId}</Text>
