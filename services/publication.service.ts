@@ -7,10 +7,7 @@ export class PublicationService {
 				.then((res) => res.json())
 				.then((data: IPublication[]) => resolve(data.slice(0, 3)))
 				.catch(() =>
-					reject(
-						"Hubo un error al obtener las publicaciones del usuario " +
-							userId
-					)
+					resolve([])
 				);
 		});
 	};

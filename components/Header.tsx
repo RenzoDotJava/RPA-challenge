@@ -7,9 +7,10 @@ const Header: React.FC = () => {
 	const { search, searchFilter } = useContext(PublicationContext);
 
 	return (
-		<View style={styles.header}>
+		<View testID="header" style={styles.header}>
 			<View style={styles.container}>
 				<TextInput
+					testID="search-bar"
 					style={styles.searchInput}
 					onChangeText={(text) => searchFilter(text)}
 					value={search}

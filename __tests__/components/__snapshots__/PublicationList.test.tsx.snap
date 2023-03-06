@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing <PublicationList /> Matching snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#CCCCCC",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    ListEmptyComponent={
+      <EmptyList
+        text="No hay publicaciones"
+      />
+    }
+    data={[]}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    refreshControl={
+      <RefreshControlMock
+        colors={
+          [
+            "#32373A",
+          ]
+        }
+        onRefresh={[MockFunction]}
+        refreshing={false}
+        tintColor="#32373A"
+      />
+    }
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={[]}
+    testID="publication-list"
+  >
+    <RCTRefreshControl />
+    <View>
+      <View
+        style={
+          {
+            "flex": 1,
+            "marginTop": 15,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "fontFamily": "Arial",
+              "fontSize": 20,
+              "fontWeight": "500",
+              "textAlign": "center",
+            }
+          }
+        >
+          No hay publicaciones
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

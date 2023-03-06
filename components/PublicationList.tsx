@@ -11,6 +11,7 @@ const PublicationList: React.FC = () => {
   return (
     <View style={styles.container}>
       <SectionList
+        testID="publication-list"
         refreshControl={
           <RefreshControl
             refreshing={loading}

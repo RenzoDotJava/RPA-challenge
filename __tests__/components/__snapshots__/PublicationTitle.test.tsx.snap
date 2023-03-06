@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing <PublicationTitle /> Matching snapshot 1`] = `
+<View
+  style={
+    {
+      "backgroundColor": "#DFDFDF",
+      "marginTop": 10,
+      "paddingHorizontal": 13,
+    }
+  }
+  testID="publication-title"
+>
+  <Text
+    style={
+      {
+        "color": "#32373A",
+        "fontFamily": "Arial",
+        "fontSize": 25,
+        "fontWeight": "bold",
+        "marginBottom": 8,
+        "marginTop": 15,
+      }
+    }
+  >
+    User 
+    1
+  </Text>
+  <View
+    style={
+      {
+        "backgroundColor": "#32373A",
+        "height": 4,
+        "width": 45,
+      }
+    }
+  />
+</View>
+`;

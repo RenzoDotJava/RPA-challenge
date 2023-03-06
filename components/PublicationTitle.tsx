@@ -6,7 +6,7 @@ type PublicationTitleProps = {
 
 const PublicationTitle: React.FC<PublicationTitleProps> = ({ userId }) => {
 	return (
-		<View style={styles.container}>
+		<View testID="publication-title" style={styles.container}>
 			<Text style={styles.title}>User {userId}</Text>
 			<View style={styles.line}></View>
 		</View>

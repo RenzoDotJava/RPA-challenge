@@ -12,7 +12,7 @@ const PublicationContent: React.FC<PublicationContentProps> = ({
 	body,
 }) => {
 	return (
-		<View style={styles.container}>
+		<View testID="publication-content" style={styles.container}>
 			<View
 				style={[
 					styles.titleWrapper,

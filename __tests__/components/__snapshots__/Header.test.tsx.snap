@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing <Header /> Matching snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "backgroundColor": "black",
+      "flexDirection": "row",
+      "paddingBottom": 8,
+    }
+  }
+  testID="header"
+>
+  <View
+    style={
+      {
+        "borderBottomColor": "white",
+        "borderBottomWidth": 2,
+        "flexDirection": "row",
+        "marginBottom": 1,
+        "marginHorizontal": 12,
+        "marginTop": 10,
+      }
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      style={
+        {
+          "color": "white",
+          "flex": 1,
+          "paddingBottom": 15,
+        }
+      }
+      testID="search-bar"
+      value=""
+    />
+    <Text />
+  </View>
+</View>
+`;

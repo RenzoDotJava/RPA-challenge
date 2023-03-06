@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing <PublicationTitle /> Matching snapshot 1`] = `
+<View
+  style={
+    {
+      "flex": 1,
+      "marginTop": 15,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "fontFamily": "Arial",
+        "fontSize": 20,
+        "fontWeight": "500",
+        "textAlign": "center",
+      }
+    }
+  >
+    text
+  </Text>
+</View>
+`;
